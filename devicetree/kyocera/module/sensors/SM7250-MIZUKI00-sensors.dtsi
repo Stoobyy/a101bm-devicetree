@@ -1,0 +1,68 @@
+/*
+ * This software is contributed or developed by KYOCERA Corporation.
+ * (C) 2020 KYOCERA Corporation
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License version 2 and
+ * only version 2 as published by the Free Software Foundation.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ */
+
+#include "SM7250-MIZUKI-common-sensors.dtsi"
+#include "SM7250-MIZUKI00-sensors-spi.dtsi"
+
+&qupv3_se1_spi {
+	qcom,rt-priority;
+	qlspi_eoss3@0 {
+		micon-mag-static_matrix = <0x2698 0xFE70 0x00D2 0xFFA6 0x2774 0x0 0xFE2A 0xFEC0 0x268E>; /* 9880, -400, 210, -90, 10100, 0, -470, -320, 9870 */
+		status = "ok";
+	};
+};
+&tlmm {
+	micon_int_out {
+		status = "ok";
+	};
+
+	sensor_micon_spi_cs {
+		status = "ok";
+	};
+
+	sensor_micon_rst {
+		status = "ok";
+	};
+
+	micon_int_n {
+		status = "ok";
+	};
+	sensor_micon_vmicon_11 {
+		status = "ok";
+	};
+
+	sensor_micon_vmicon_18 {
+		status = "ok";
+	};
+
+	sensor_micon_vsensor_18 {
+		status = "ok";
+	};
+
+	sensor_micon_sleep_clk {
+		status = "ok";
+	};
+
+	proximity_int_n {
+		status = "ok";
+	};
+};
+
+&qupv3_se0_i2c {
+	stk3338@67 { /* Ambient light and proximity sensor */
+		status = "ok";
+	};
+
+	/delete-node/ rpr0521;
+};

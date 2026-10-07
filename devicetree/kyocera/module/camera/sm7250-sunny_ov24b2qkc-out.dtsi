@@ -1,0 +1,250 @@
+#include <dt-bindings/clock/qcom,camcc-lito.h>
+
+&soc {
+	led_flash_rear: qcom,camera-flash@0 {
+		cell-index = <0>;
+		reg = <0x00 0x00>;
+		compatible = "qcom,camera-flash";
+		flash-source = <&kc_pm8150l_flash0 &kc_pm8150l_flash1>;
+		torch-source = <&kc_pm8150l_torch0 &kc_pm8150l_torch1>;
+		switch-source = <&kc_pm8150l_switch2>;
+	};
+};
+
+&cam_cci0 {
+	actuator_rear: qcom,actuator@0 {
+		cell-index = <0>;
+		reg = <0x0>;
+		compatible = "qcom,actuator";
+		cam_vio-supply = <&L8C>;
+		regulator-names = "cam_vio";
+		rgltr-cntrl-support;
+		rgltr-min-voltage = <1800000>;
+		rgltr-max-voltage = <1800000>;
+		rgltr-load-current = <80000>;
+		sensor-position = <0>;
+		sensor-mode = <0>;
+		cci-master = <0>;
+		status = "ok";
+	};
+
+	eeprom_rear: qcom,eeprom@0 {
+		cell-index = <0>;
+		reg = <0>;
+		compatible = "qcom,eeprom";
+		cam_vio-supply = <&L8C>;
+		cam_clk-supply = <&titan_top_gdsc>;
+		cam_bob-supply = <&BOB>;
+		regulator-names = "cam_vio", "cam_clk", "cam_bob";
+		rgltr-cntrl-support;
+		rgltr-min-voltage = <1800000 0 3008000>;
+		rgltr-max-voltage = <1800000 0 3960000>;
+		rgltr-load-current = <80000 0 2000000>;
+		gpio-no-mux = <0>;
+		pinctrl-names = "cam_default", "cam_suspend";
+		pinctrl-0 = <&kc_cam_sensor_mclk0_active
+				&kc_cam_sensor_active_rear>;
+		pinctrl-1 = <&kc_cam_sensor_mclk0_suspend
+				&kc_cam_sensor_suspend_rear>;
+		gpios = <&tlmm 13 GPIO_ACTIVE_HIGH>,
+			<&tlmm 30 GPIO_ACTIVE_HIGH>,
+			<&tlmm 21 GPIO_ACTIVE_HIGH>,
+			<&tlmm 22 GPIO_ACTIVE_HIGH>,
+			<&tlmm 67 GPIO_ACTIVE_HIGH>;
+		gpio-reset = <1>;
+		gpio-standby = <2>;
+		gpio-custom1 = <3>;
+		gpio-custom2 = <4>;
+		gpio-req-tbl-num = <0 1 2 3 4>;
+		gpio-req-tbl-flags = <1 0 0 0 0>;
+		gpio-req-tbl-label = "CAMIF_MCLK0",
+					"CAM_RESET0",
+					"CAM_AFVDD0",
+					"CAM_AVDD0",
+					"CAM_DVDD0";
+		sensor-position = <0>;
+		sensor-mode = <0>;
+		cci-master = <0>;
+		status = "ok";
+		clocks = <&camcc CAM_CC_MCLK0_CLK>;
+		clock-names = "cam_clk";
+		clock-cntl-level = "turbo";
+		clock-rates = <24000000>;
+	};
+
+	qcom,cam-sensor@0 {
+		cell-index = <0>;
+		compatible = "qcom,cam-sensor";
+		reg = <0x0>;
+		csiphy-sd-index = <0>;
+		sensor-position-roll = <90>;
+		sensor-position-pitch = <0>;
+		sensor-position-yaw = <180>;
+		actuator-src = <&actuator_rear>;
+		led-flash-src = <&led_flash_rear>;
+		eeprom-src = <&eeprom_rear>;
+		cam_vio-supply = <&L8C>;
+		cam_clk-supply = <&titan_top_gdsc>;
+		cam_bob-supply = <&BOB>;
+		regulator-names = "cam_vio", "cam_clk", "cam_bob";
+		rgltr-cntrl-support;
+		pwm-switch;
+		rgltr-min-voltage = <1800000 0 3008000>;
+		rgltr-max-voltage = <1800000 0 3960000>;
+		rgltr-load-current = <80000 0 2000000>;
+		gpio-no-mux = <0>;
+		pinctrl-names = "cam_default", "cam_suspend";
+		pinctrl-0 = <&kc_cam_sensor_mclk0_active
+				&kc_cam_sensor_active_rear>;
+		pinctrl-1 = <&kc_cam_sensor_mclk0_suspend
+				&kc_cam_sensor_suspend_rear>;
+		gpios = <&tlmm 13 GPIO_ACTIVE_HIGH>,
+			<&tlmm 30 GPIO_ACTIVE_HIGH>,
+			<&tlmm 21 GPIO_ACTIVE_HIGH>,
+			<&tlmm 22 GPIO_ACTIVE_HIGH>,
+			<&tlmm 67 GPIO_ACTIVE_HIGH>;
+		gpio-reset = <1>;
+		gpio-standby = <2>;
+		gpio-custom1 = <3>;
+		gpio-custom2 = <4>;
+		gpio-req-tbl-num = <0 1 2 3 4>;
+		gpio-req-tbl-flags = <1 0 0 0 0>;
+		gpio-req-tbl-label = "CAMIF_MCLK0",
+					"CAM_RESET0",
+					"CAM_AFVDD0",
+					"CAM_AVDD0",
+					"CAM_DVDD0";
+		sensor-mode = <0>;
+		cci-master = <0>;
+		status = "ok";
+		clocks = <&camcc CAM_CC_MCLK0_CLK>;
+		clock-names = "cam_clk";
+		clock-cntl-level = "turbo";
+		clock-rates = <24000000>;
+	};
+};
+
+
+&spmi_bus {
+	qcom,pm8150l@5 {
+		kc_flash_led: qcom,leds@d300 {
+			kc_pm8150l_flash0: qcom,flash_0 {
+				label = "flash";
+				qcom,led-name = "led:flash_0";
+				qcom,max-current = <1500>;
+				qcom,default-led-trigger = "flash0_trigger";
+				qcom,id = <0>;
+				qcom,current-ma = <800>;
+				qcom,duration-ms = <300>;
+				qcom,ires-ua = <10000>;
+				qcom,hdrm-voltage-mv = <325>;
+				qcom,hdrm-vol-hi-lo-win-mv = <100>;
+			};
+
+			kc_pm8150l_flash1: qcom,flash_1 {
+				label = "flash";
+				qcom,led-name = "led:flash_1";
+				qcom,max-current = <1500>;
+				qcom,default-led-trigger = "flash1_trigger";
+				qcom,id = <1>;
+				qcom,current-ma = <800>;
+				qcom,duration-ms = <300>;
+				qcom,ires-ua = <10000>;
+				qcom,hdrm-voltage-mv = <325>;
+				qcom,hdrm-vol-hi-lo-win-mv = <100>;
+			};
+
+			kc_pm8150l_torch0: qcom,torch_0 {
+				label = "torch";
+				qcom,led-name = "led:torch_0";
+				qcom,max-current = <500>;
+				qcom,default-led-trigger = "torch0_trigger";
+				qcom,id = <0>;
+				qcom,current-ma = <120>;
+				qcom,ires-ua = <10000>;
+				qcom,hdrm-voltage-mv = <325>;
+				qcom,hdrm-vol-hi-lo-win-mv = <100>;
+			};
+
+			kc_pm8150l_torch1: qcom,torch_1 {
+				label = "torch";
+				qcom,led-name = "led:torch_1";
+				qcom,max-current = <500>;
+				qcom,default-led-trigger = "torch1_trigger";
+				qcom,id = <1>;
+				qcom,current-ma = <120>;
+				qcom,ires-ua = <10000>;
+				qcom,hdrm-voltage-mv = <325>;
+				qcom,hdrm-vol-hi-lo-win-mv = <100>;
+			};
+
+			kc_pm8150l_switch2: qcom,led_switch_2 {
+				label = "switch";
+				qcom,led-name = "led:switch_2";
+				qcom,led-mask = <3>; /* Channels 1 and 2 */
+				qcom,default-led-trigger = "switch2_trigger";
+			};
+		};
+	};
+};
+
+&tlmm {
+	kc_cam_sensor_mclk0_active: kc_cam_sensor_mclk0_active {
+		/* MCLK0 */
+		mux {
+			pins = "gpio13";
+			function = "cam_mclk";
+		};
+
+		config {
+			pins = "gpio13";
+			bias-disable; /* No PULL */
+			drive-strength = <6>; /* 6 mA */
+		};
+	};
+
+	kc_cam_sensor_mclk0_suspend: kc_cam_sensor_mclk0_suspend {
+		/* MCLK0 */
+		mux {
+			pins = "gpio13";
+			function = "gpio";
+		};
+
+		config {
+			pins = "gpio13";
+			bias-disable; /* No PULL */
+			drive-strength = <6>; /* 6 mA */
+			output-low;
+		};
+	};
+
+	kc_cam_sensor_active_rear: kc_cam_sensor_active_rear {
+		/* RESET REAR */
+		mux {
+			pins = "gpio30";
+			function = "gpio";
+		};
+
+		config {
+			pins = "gpio30";
+			bias-disable; /* No PULL */
+			drive-strength = <2>; /* 2 mA */
+		};
+	};
+
+	kc_cam_sensor_suspend_rear: kc_cam_sensor_suspend_rear {
+		/* RESET REAR */
+		mux {
+			pins = "gpio30";
+			function = "gpio";
+		};
+
+		config {
+			pins = "gpio30";
+			bias-disable; /* No PULL */
+			drive-strength = <2>; /* 2 mA */
+			output-low;
+		};
+	};
+};
+

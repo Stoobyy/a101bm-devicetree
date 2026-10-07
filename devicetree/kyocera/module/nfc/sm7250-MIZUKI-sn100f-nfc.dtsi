@@ -1,0 +1,299 @@
+/*
+ * This software is contributed or developed by KYOCERA Corporation.
+ * (C) 2019 KYOCERA Corporation
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License version 2 and
+ * only version 2 as published by the Free Software Foundation.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ */
+
+/* &i2c3 { */
+&qupv3_se9_i2c {
+    pinctrl-0 = <>;
+    pinctrl-1 = <>;
+    #address-cells = <1>;
+    #size-cells = <0>;
+    status = "ok";
+    pn553@28 {
+        status = "ok";
+        compatible = "nxp,pn553";
+        reg = <0x28>;
+        clock-frequency = <350000>;
+
+        nxp,pn553-irq = <&tlmm  34 0>;
+        nxp,pn553-pwr-en = <&tlmm 31 0>;
+        nxp,pn553-fet-g = <&pm7250b_gpios 7 0>;
+
+        nxp,pn553-fw-dwnld = <&tlmm 35 0>;
+        interrupt-parent = <&tlmm>;
+        interrupts = <34 4>;  
+            /* 1 = low-to-high edge triggered
+               2 = high-to-low edge triggered
+               4 = active high level-sensitive
+               8 = active low level-sensitive */
+        interrupt-names = "nfc_irq";
+
+        pinctrl-names = "i2c_nfc_active",
+                        "i2c_nfc_suspend",
+                        "i2c_nfc_init",
+                        "i2c_nfc_deinit",
+                        "nfc_rst_pre_active",
+                        "nfc_rst_active",
+                        "nfc_rst_pre_suspend",
+                        "nfc_rst_suspend",
+                        "pwr_en_active",
+                        "pwr_en_suspend";
+        pinctrl-0 = <&i2c_nfc_active>;
+        pinctrl-1 = <&i2c_nfc_suspend>;
+        pinctrl-2 = <&i2c_nfc_init>;
+        pinctrl-3 = <&i2c_nfc_deinit>;
+        pinctrl-4 = <&nfc_rst_pre_active>;
+        pinctrl-5 = <&nfc_rst_active>;
+        pinctrl-6 = <&nfc_rst_pre_suspend>;
+        pinctrl-7 = <&nfc_rst_suspend>;
+        pinctrl-8 = <&pwr_en_active>;
+        pinctrl-9 = <&pwr_en_suspend>;
+    };
+
+    pi4io@43 {
+        status = "ok";
+        compatible = "pericom,pi4io";
+        reg = <0x43>;
+        clock-frequency = <350000>;
+
+        pericom,pi4io = <&tlmm 68 0>;
+    };
+
+};
+
+&pm7250b_gpios {
+    nfc_rst {
+        status = "ok";
+        nfc_rst_pre_active: nfc_rst_pre_active {
+            pins = "gpio7";
+            function = "normal";
+            bias-pull-down;
+            output-low;
+            input-enable;
+            output-disable;
+            power-source = <1>;
+        };
+        nfc_rst_active: nfc_rst_active {
+            pins = "gpio7";
+            function = "normal";
+            bias-disable;
+            output-low;
+            input-disable;
+            power-source = <1>;
+            qcom,drive-strength = <PMIC_GPIO_STRENGTH_LOW>;
+        };
+        nfc_rst_pre_suspend: nfc_rst_pre_suspend {
+            pins = "gpio7";
+            function = "normal";
+            bias-pull-up;
+            qcom,pull-up-strength = <PMIC_GPIO_PULL_UP_30>;
+            input-enable;
+            output-disable;
+            output-high;
+            power-source = <1>;
+        };
+        nfc_rst_suspend: nfc_rst_suspend {
+            pins = "gpio7";
+            function = "normal";
+            bias-disable;
+            output-high;
+            input-disable;
+            power-source = <1>;
+            qcom,drive-strength = <PMIC_GPIO_STRENGTH_LOW>;
+        };
+    };
+};
+
+/* &SPI { */
+&qupv3_se1_spi {
+    pinctrl-0 = <>;
+    pinctrl-1 = <>;
+    status = "ok";
+    #address-cells = <1>;
+    #size-cells = <0>;
+
+    spidev5: spi@0 {
+        compatible = "nxp,p61";
+        nxp,p61-irq = <&tlmm 34 0>;
+        reg = <0>;
+        spi-max-frequency = <8000000>; //the transfer speed
+
+        pinctrl-names = "spi_ese_active", "spi_ese_suspend", "spi_ese_init", "spi_ese_deinit";
+
+        pinctrl-0 = <&spi_ese_active0 &spi_ese_active1>;
+        pinctrl-1 = <&spi_ese_suspend0 &spi_ese_suspend1>;
+        pinctrl-2 = <&spi_ese_init>;
+        pinctrl-3 = <&spi_ese_deinit>;
+
+        status = "okay";
+    };
+
+};
+
+&tlmm {
+    nfc {
+            pwr_en_active: pwr_en_active {
+                mux {
+                    pins = "gpio31";
+                    function = "gpio";
+                };
+                config {
+                    pins = "gpio31";
+                    bias-disable;
+                };
+            };
+            pwr_en_suspend: pwr_en_suspend {
+                mux {
+                    pins = "gpio31";
+                    function = "gpio";
+                };
+                config {
+                    pins = "gpio31";
+                    bias-disable;
+                };
+            };
+
+            i2c_nfc_init: i2c_nfc_init {
+                mux {
+                    pins = "gpio46","gpio47";
+                    function = "gpio";
+                };
+                config {
+                    pins = "gpio46","gpio47";
+                    input-enable;
+                    bias-disable;
+                };
+            };
+            i2c_nfc_deinit: i2c_nfc_deinit {
+                mux {
+                    pins = "gpio46","gpio47";
+                    function = "gpio";
+                };
+                config {
+                    pins = "gpio46","gpio47";
+                    output-low;
+                    bias-disable;
+                };
+            };
+
+            i2c_nfc_active: i2c_nfc_active {
+                /* active state */
+                mux {
+                /* 46,47 : I2C */
+                    pins = "gpio46","gpio47";
+                    function = "qup13";
+                };
+                config {
+                    pins = "gpio46","gpio47";
+                    drive-strength = <2>; /* 2 MA */
+                    bias-disable;
+                };
+            };
+            i2c_nfc_suspend: i2c_nfc_suspend {
+                /* suspend state */
+                mux {
+                    /* 46,47 : I2C */
+                    pins = "gpio46","gpio47";
+                    function = "gpio";
+                };
+                config {
+                    pins = "gpio46","gpio47";
+                    drive-strength = <2>; /* 2 MA */
+                    bias-disable;
+                };
+            };
+
+            spi_ese_active0: spi_ese_active0 {
+                /* active state */
+                mux {
+                    /* 0 : SPI */
+                    pins = "gpio0";
+                    function = "qup01";
+                };
+                config {
+                    pins = "gpio0";
+                    drive-strength = <2>; /* 2 MA */
+                    bias-pull-up;
+                };
+            };
+            spi_ese_active1: spi_ese_active1 {
+                /* active state */
+                mux {
+                    /* 1,2,3 : SPI */
+                    pins = "gpio1","gpio2","gpio3";
+                    function = "qup01";
+                };
+                config {
+                    pins = "gpio1","gpio2","gpio3";
+                    drive-strength = <2>; /* 2 MA */
+                    bias-disable;
+                };
+            };
+
+            spi_ese_suspend0: spi_ese_suspend0 {
+                /* suspend state */
+                mux {
+                    /* 0 : SPI */
+                    pins = "gpio0";
+                    function = "gpio";
+                };
+                config {
+                    pins = "gpio0";
+                    drive-strength = <2>; /* 2 MA */
+                    bias-pull-down;
+                };
+            };
+            spi_ese_suspend1: spi_ese_suspend1 {
+                /* suspend state */
+                mux {
+                    /* 1,2,3 : SPI */
+                    pins = "gpio1","gpio2","gpio3";
+                    function = "gpio";
+                };
+                config {
+                    pins = "gpio1","gpio2","gpio3";
+                    drive-strength = <2>; /* 2 MA */
+                    bias-disable;
+                };
+            };
+
+            spi_ese_init: spi_ese_init {
+                mux {
+                    /*      : SPI */
+                    pins = "gpio3";
+                    function = "gpio";
+                };
+                config {
+                    pins = "gpio3";
+                    drive-strength = <2>; /* 2 MA */
+                    output-high;
+                    bias-disable;
+                };
+            };
+            spi_ese_deinit: spi_ese_deinit {
+                mux {
+                    /*  : SPI */
+                    pins = "gpio3";
+                    function = "gpio";
+                };
+                config {
+                    pins = "gpio3";
+                    drive-strength = <2>; /* 2 MA */
+                    output-low;
+                    bias-disable;
+                };
+            };
+     };
+};
+
+

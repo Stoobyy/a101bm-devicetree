@@ -1,0 +1,110 @@
+/*
+ * This software is contributed or developed by KYOCERA Corporation.
+ * (C) 2020 KYOCERA Corporation
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License version 2 and
+ * only version 2 as published by the Free Software Foundation.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ */
+
+&tlmm{
+	qupv3_se8_spi_pins {
+		kc_qupv3_se8_miso_active: kc_qupv3_se8_miso_active {
+			mux {
+				pins = "gpio49";
+				function = "qup12";
+			};
+			config {
+				pins = "gpio49";
+				input-enable;
+				bias-pull-down;
+				drive-strength = <2>;
+			};
+		};
+
+		kc_qupv3_se8_mosi_active: kc_qupv3_se8_mosi_active {
+			mux {
+				pins = "gpio50";
+				function = "qup12";
+			};
+
+			config {
+				pins = "gpio50";
+				ouput-low;
+				bias-disable;
+				drive-strength = <4>;
+			};
+		};
+
+		kc_qupv3_se8_clk_active: kc_qupv3_se8_clk_active {
+			mux {
+				pins = "gpio51";
+				function = "qup12";
+			};
+
+			config {
+				pins = "gpio51";
+				ouput-low;
+				bias-disable;
+				drive-strength = <4>;
+			};
+		};
+
+		kc_qupv3_se8_miso_sleep: kc_qupv3_se8_miso_sleep {
+			mux {
+				pins = "gpio49";
+				function = "gpio";
+			};
+
+			config {
+				pins = "gpio49";
+				input-enable;
+				bias-pull-down;
+				drive-strength = <2>;
+			};
+		};
+
+		kc_qupv3_se8_mosi_sleep: kc_qupv3_se8_mosi_sleep {
+			mux {
+				pins = "gpio50";
+				function = "gpio";
+			};
+
+			config {
+				pins = "gpio50";
+				ouput-low;
+				bias-disable;
+				drive-strength = <4>;
+			};
+		};
+
+		kc_qupv3_se8_clk_sleep: kc_qupv3_se8_clk_sleep {
+			mux {
+				pins = "gpio51";
+				function = "gpio";
+			};
+
+			config {
+				pins = "gpio51";
+				ouput-low;
+				bias-disable;
+				drive-strength = <4>;
+			};
+		};
+	};
+};
+
+&qupv3_se8_spi {
+	status = "ok";
+	pinctrl-0 = <&kc_qupv3_se8_miso_active
+				 &kc_qupv3_se8_mosi_active
+				 &kc_qupv3_se8_clk_active>;
+	pinctrl-1 = <&kc_qupv3_se8_miso_sleep
+				 &kc_qupv3_se8_mosi_sleep
+				 &kc_qupv3_se8_clk_sleep>;
+};

@@ -1,0 +1,7 @@
+#include "SM7250-MIZUKI-common-display.dtsi"
+#include "dsi-panel-kc-jdi-fhd-video-panel.dtsi"
+#include "dsi-panel-kc-auo-fhd-video-panel.dtsi"
+
+&sde_dsi {
+	qcom,dsi-default-panel = <&dsi_auo_fhd_2160_video>;
+};

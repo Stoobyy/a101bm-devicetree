@@ -1,0 +1,13 @@
+/*
+ * This software is contributed or developed by KYOCERA Corporation.
+ * (C) 2020 KYOCERA Corporation
+ *
+ */
+
+&qupv3_se0_i2c {
+		stk3x5a@46 { /* Ambient light and proximity sensor */
+				compatible = "stk3x5a_i2c";
+				need_prox_thresh_adj;
+		};
+};
+

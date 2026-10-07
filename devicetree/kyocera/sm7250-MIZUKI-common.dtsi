@@ -1,0 +1,18 @@
+/*
+ * This software is contributed or developed by KYOCERA Corporation.
+ * (C) 2020 KYOCERA Corporation
+ *
+ */
+
+#include "../../qcom/proprietary/devicetree-4.19/qcom/lito-pmic-overlay.dtsi"
+
+#include "./module/bsp/ram/sm7250-MIZUKI-common-ram.dtsi"
+#include "./module/flashdriver/ufs/sm7250-MIZUKI-common-ufs.dtsi"
+#include "./module/flashdriver/sd/sm7250-MIZUKI-common-sd.dtsi"
+#include "./module/pm/charger/sm7250-MIZUKI-common-charger.dtsi"
+#include "./module/pm/gpio/sm7250-MIZUKI-common-gpio.dtsi"
+#include "./module/pm/hkadc/sm7250-MIZUKI-common-hkadc.dtsi"
+#include "./module/pm/pmic/sm7250-MIZUKI-common-pmic.dtsi"
+#include "./module/pm/qg/sm7250-MIZUKI-common-qg.dtsi"
+#include "./module/thermal/sm7250-MIZUKI-common-thermal.dtsi"
+#include "./module/audio/sm7250-MIZUKI-common-audio.dtsi"

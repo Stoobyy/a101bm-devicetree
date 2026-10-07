@@ -1,0 +1,14 @@
+/*
+ * This software is contributed or developed by KYOCERA Corporation.
+ * (C) 2020 KYOCERA Corporation
+ *
+ */
+
+#include "./module/usb/sm7250-MIZUKI02-usb.dtsi"
+#include "./module/vibrator/sm7250-MIZUKI02-vibrator.dtsi"
+#include "./module/i2c/sm7250-MIZUKI02-i2c.dtsi"
+#include "./module/keys/sm7250-MIZUKI02-keys.dtsi"
+#include "./module/display/SM7250-MIZUKI02-display.dtsi"
+#include "./module/touchscreen/SM7250-MIZUKI02-touch.dtsi"
+#include "./module/audio/sm7250-MIZUKI02-audio.dtsi"
+#include "./module/pm/qg/sm7250-MIZUKI-common-batterydata.dtsi"

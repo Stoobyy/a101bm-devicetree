@@ -1,0 +1,343 @@
+/*
+ * This software is contributed or developed by KYOCERA Corporation.
+ * (C) 2020 KYOCERA Corporation
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License version 2 and
+ * only version 2 as published by the Free Software Foundation.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ */
+
+#include <dt-bindings/pinctrl/qcom,pmic-gpio.h>
+
+&pm8150_gpios {
+	/* GPIO 1 (NC) */
+	nc_pm8150_gpio1 {
+		nc_pm8150_gpio1_default:gpio@c000 {
+			pins = "gpio1";
+			function = "normal";
+			bias-pull-down;
+			input-enable;
+			power-source = <0>;
+		};
+	};
+	/* GPIO 3 (PM_GPIO_SLP_CLK_OUT) */
+	clp_clk_out {
+		clp_clk_out_default:gpio@c200 {
+			pins = "gpio3";
+			function = "func1";
+			bias-disable;
+			output-low;
+			power-source = <0>;
+			qcom,drive-strength = <PMIC_GPIO_STRENGTH_LOW>;
+		};
+	};
+	/* GPIO 6 (NC) */
+	nc_pm8150_gpio6 {
+		nc_pm8150_gpio6_default:gpio@c500 {
+			pins = "gpio6";
+			function = "normal";
+			bias-pull-down;
+			input-enable;
+			power-source = <0>;
+		};
+	};
+	/* GPIO 7 (NC) */
+	nc_pm8150_gpio7 {
+		nc_pm8150_gpio7_default:gpio@c600 {
+			pins = "gpio7";
+			function = "normal";
+			bias-pull-down;
+			input-enable;
+			power-source = <0>;
+		};
+	};
+	/* GPIO 8 (NC) */
+	nc_pm8150_gpio8 {
+		nc_pm8150_gpio8_default:gpio@c700 {
+			pins = "gpio8";
+			function = "normal";
+			bias-pull-down;
+			input-enable;
+			power-source = <0>;
+		};
+	};
+	/* GPIO 9 (NC) */
+	nc_pm8150_gpio9 {
+		nc_pm8150_gpio9_default:gpio@c800 {
+			pins = "gpio9";
+			function = "normal";
+			bias-pull-down;
+			input-enable;
+			power-source = <0>;
+		};
+	};
+	/* GPIO 10 (NC) */
+	nc_pm8150_gpio10 {
+		nc_pm8150_gpio10_default:gpio@c900 {
+			pins = "gpio10";
+			function = "normal";
+			bias-pull-down;
+			input-enable;
+			power-source = <0>;
+		};
+	};
+};
+
+&pm8150l_gpios {
+	/* GPIO 1 (Unavailable) */
+	unavailable_gpio1 {
+		unavailable_gpio1_default:gpio@c000 {
+			pins = "gpio1";
+			function = "normal";
+			bias-pull-down;
+			input-enable;
+			power-source = <0>;
+		};
+	};
+	/* GPIO 2 (NC) */
+	nc_pm8150l_gpio2 {
+		nc_pm8150l_gpio2_default:gpio@c100 {
+			pins = "gpio2";
+			function = "normal";
+			bias-pull-down;
+			input-enable;
+			power-source = <0>;
+		};
+	};
+	/* GPIO 3 (DISP0_RESET_N) */
+	dispo_reset {
+		dispo_reset_default:gpio@c200 {
+			pins = "gpio3";
+			function = "normal";
+			bias-disable;
+			output-low;
+			power-source = <0>;
+			qcom,drive-strength = <PMIC_GPIO_STRENGTH_LOW>;
+		};
+	};
+	/* GPIO 4 (WCHG_EN) */
+	wchg_en {
+		wchg_en_default:gpio@c300 {
+			pins = "gpio4";
+			function = "normal";
+			bias-disable;
+			output-low;
+			power-source = <0>;
+			qcom,drive-strength = <PMIC_GPIO_STRENGTH_LOW>;
+		};
+	};
+	/* GPIO 5 (VOL_DOWN_KEY_N) */
+	key_vol_down {
+		key_vol_down_default:gpio@c400 {
+			pins = "gpio5";
+			function = "normal";
+			bias-pull-up;
+			qcom,pull-up-strength = <PMIC_GPIO_PULL_UP_30>;
+			input-enable;
+			power-source = <0>;
+		};
+	};
+	/* GPIO 6 (NC) */
+	nc_pm8150l_gpio6 {
+		nc_pm8150l_gpio6_default:gpio@c500 {
+			pins = "gpio6";
+			function = "normal";
+			input-enable;
+			bias-pull-down;
+		};
+	};
+	/* GPIO 7 (VMIPI_18_EN) */
+	vmipi_18_en {
+		vmipi_18_en_default:gpio@c600 {
+			pins = "gpio7";
+			function = "normal";
+			bias-disable;
+			output-low;
+			power-source = <1>;
+			qcom,drive-strength = <PMIC_GPIO_STRENGTH_LOW>;
+		};
+	};
+	/* GPIO 8 (WCHG_INT) */
+	wchg_init {
+		wchg_init_default:gpio@c700 {
+			pins = "gpio8";
+			function = "normal";
+			bias-pull-down;
+			input-enable;
+			power-source = <1>;
+		};
+	};
+	/* GPIO 9 (NC) */
+	nc_pm8150l_gpio9 {
+		nc_pm8150l_gpio9_default:gpio@c800 {
+			pins = "gpio9";
+			function = "normal";
+			bias-pull-down;
+			input-enable;
+			power-source = <0>;
+		};
+	};
+	/* GPIO 10 (WCHG_nEN) */
+	wchg_nen {
+		wchg_nen_default:gpio@c900 {
+			pins = "gpio10";
+			function = "normal";
+			bias-disable;
+			output-low;
+			power-source = <1>;
+			qcom,drive-strength = <PMIC_GPIO_STRENGTH_LOW>;
+		};
+	};
+	/* GPIO 11 (WCHG_DET_N) */
+	wchg_det {
+		wchg_det_default:gpio@ca00 {
+			pins = "gpio11";
+			function = "normal";
+			bias-pull-down;
+			input-enable;
+			power-source = <1>;
+		};
+	};
+	/* GPIO 12 (eLDO13_EN) */
+	eldo13_en {
+		eldo13_en_default:gpio@cb00 {
+			pins = "gpio12";
+			function = "normal";
+			qcom,drive-strength = <2>;
+			power-source = <0>;
+			bias-disable;
+			output-high;
+		};
+	};
+};
+
+&pm7250b_vadc {
+	pinctrl-0 = <&front_cam_therm_default &out_cam_therm_default>;
+};
+
+&pm7250b_gpios {
+	/* GPIO 1 (PTT_KEY_N) */
+	ptt_key {
+		ptt_key_default:gpio@c000 {
+			pins = "gpio1";
+			function = "normal";
+			bias-pull-up;
+			qcom,pull-up-strength = <PMIC_GPIO_PULL_UP_30>;
+			input-enable;
+			power-source = <0>;
+		};
+	};
+	/* GPIO 2 (NC) */
+	nc_pm7250b_gpio2 {
+		nc_pm7250b_gpio2_default:gpio@c100 {
+			pins = "gpio2";
+			function = "normal";
+			bias-pull-down;
+			input-enable;
+			power-source = <0>;
+		};
+	};
+	/* GPIO 3 (NC) */
+	nc_pm7250b_gpio3 {
+		nc_pm7250b_gpio3_default:gpio@c200 {
+			pins = "gpio3";
+			function = "normal";
+			bias-pull-down;
+			input-enable;
+			power-source = <0>;
+		};
+	};
+	/* GPIO 4 (CAMERA_KEY_N) */
+	camera_key {
+		camera_key_default:gpio@c300 {
+			pins = "gpio4";
+			function = "normal";
+			bias-pull-up;
+			qcom,pull-up-strength = <PMIC_GPIO_PULL_UP_30>;
+			input-enable;
+			power-source = <0>;
+		};
+	};
+	/* GPIO 5 (FRONT_CAM_THERM) */
+	front_cam_therm {
+		front_cam_therm_default:gpio@c400 {
+			pins = "gpio5";
+			bias-high-impedance;
+		};
+	};
+	/* GPIO 6 (NC) */
+	nc_pm7250b_gpio6 {
+		nc_pm7250b_gpio6_default:gpio@c500 {
+			pins = "gpio6";
+			function = "normal";
+			bias-pull-down;
+			input-enable;
+			power-source = <0>;
+		};
+	};
+	/* GPIO 7 (NFC_RST) */
+	nfc_rst {
+		nfc_rst_default:gpio@c600 {
+			pins = "gpio7";
+			function = "normal";
+			bias-disable;
+			output-low;
+			power-source = <1>;
+			qcom,drive-strength = <PMIC_GPIO_STRENGTH_LOW>;
+		};
+	};
+	/* GPIO 8 (OUT_CAM_THERM) */
+	out_cam_therm {
+		out_cam_therm_default:gpio@c700 {
+			pins = "gpio8";
+			bias-high-impedance;
+		};
+	};
+	/* GPIO 9 (Unavailable) */
+	unavailable_gpio9 {
+		unavailable_gpio9_default:gpio@c800 {
+			pins = "gpio9";
+			function = "normal";
+			bias-pull-down;
+			input-enable;
+			power-source = <0>;
+		};
+	};
+	/* GPIO 10 (NC) */
+	nc_pm7250b_gpio10 {
+		nc_pm7250b_gpio10_default:gpio@c900 {
+			pins = "gpio10";
+			function = "normal";
+			bias-pull-down;
+			input-enable;
+			power-source = <0>;
+		};
+	};
+	/* GPIO 11 (TPS_EN_NBYP) */
+	tps_en_nbyp {
+		tps_en_nbyp_default:gpio@ca00 {
+			pins = "gpio11";
+			function = "normal";
+			bias-disable;
+			output-low;
+			power-source = <0>;
+			qcom,drive-strength = <PMIC_GPIO_STRENGTH_LOW>;
+		};
+	};
+	/* GPIO 12 (NC) */
+	nc_pm7250b_gpio12 {
+		nc_pm7250b_gpio12_default:gpio@cb00 {
+			pins = "gpio12";
+			function = "normal";
+			bias-pull-down;
+			input-enable;
+			power-source = <0>;
+		};
+	};
+};
+

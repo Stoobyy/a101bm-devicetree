@@ -1,0 +1,17 @@
+/*
+ * This software is contributed or developed by KYOCERA Corporation.
+ * (C) 2020 KYOCERA Corporation
+ */
+
+#include <dt-bindings/gpio/gpio.h>
+
+&sdhc_2 {
+    qcom,clk-rates = <384000 20000000 24000000 42526300 48000000 85052600 171428600>;
+    qcom,devfreq,freq-table = <42526300 171428600>;
+};
+
+&sdc2_data_on {
+    config {
+        drive-strength = <10>;
+    };
+};

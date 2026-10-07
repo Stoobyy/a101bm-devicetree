@@ -1,0 +1,164 @@
+/*
+ * This software is contributed or developed by KYOCERA Corporation.
+ * (C) 2020 KYOCERA Corporation
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License version 2 and
+ * only version 2 as published by the Free Software Foundation.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ */
+
+&qupv3_se7_i2c {
+	#address-cells = <1>;
+	#size-cells = <0>;
+
+	status = "ok";
+
+	qcom,i2c-touch-active = "focaltech,fts_ts";
+
+	focaltech@38 {
+		compatible = "focaltech,fts_ts";
+		reg = <0x38>;
+		interrupt-parent = <&tlmm>;
+		interrupts = <9 0x2008>;
+		focaltech,reset-gpio = <&tlmm 8 0x00>;
+		focaltech,irq-gpio = <&tlmm 9 0x2008>;
+		focaltech,max-touch-number = <5>;
+		focaltech,display-coords = <0 0 720 1480>;
+
+		vdd-supply = <&L17A>;
+
+		kc,vtp30-gpio = <&tlmm 11 0>;
+		kc,vtp18-gpio = <&tlmm 46 0>;
+
+		pinctrl-names = "pmx_ts_active", "pmx_ts_suspend","pmx_ts_release";
+		pinctrl-0 = <&ts_active>;
+		pinctrl-1 = <&ts_int_suspend &ts_reset_suspend>;
+		pinctrl-2 = <&pmx_ts_release>;
+
+		panel = <&dsi_s6e8aa5x01_amoled_video>;
+	};
+};
+
+&tlmm {
+	ts_rst_n {
+		ts_rst_default: ts_rst_default {
+			mux {
+				pins = "gpio8";
+				function = "gpio";
+			};
+
+			config {
+				pins = "gpio8";
+				drive-strength = <2>;
+				bias-disable;
+				output-low;
+			};
+		};
+		ts_rst_active: ts_rst_active {
+			mux {
+				pins = "gpio8";
+				function = "gpio";
+			};
+
+			config {
+				pins = "gpio8";
+				drive-strength = <2>;
+				bias-disable;
+				output-high;
+			};
+		};
+		ts_rst_sleep: ts_rst_sleep {
+			mux {
+				pins = "gpio8";
+				function = "gpio";
+			};
+
+			config {
+				pins = "gpio8";
+				drive-strength = <2>;
+				bias-disable;
+				output-low;
+			};
+		};
+	};
+
+	ts_int_n {
+		ts_int_default: ts_int_default {
+			mux {
+				pins = "gpio9";
+				function = "gpio";
+			};
+
+			config {
+				pins = "gpio9";
+				drive-strength = <2>;
+				bias-pull-down;
+			};
+		};
+		ts_int_active: ts_int_active {
+			mux {
+				pins = "gpio9";
+				function = "gpio";
+			};
+
+			config {
+				pins = "gpio9";
+				drive-strength = <2>;
+				bias-pull-up;
+			};
+		};
+		ts_int_sleep: ts_int_sleep {
+			mux {
+				pins = "gpio9";
+				function = "gpio";
+			};
+
+			config {
+				pins = "gpio9";
+				drive-strength = <2>;
+				bias-pull-down;
+			};
+		};
+	};
+
+    ts_i2c {
+        ts_i2c_default: ts_i2c_default {
+            mux {
+                pins = "gpio6", "gpio7";
+                function = "gpio";
+            };
+            config {
+                pins = "gpio6", "gpio7";
+                drive-strength = <2>;
+                bias-pull-down;
+            };
+        };
+        ts_i2c_active: ts_i2c_active {
+            mux {
+                pins = "gpio6", "gpio7";
+                function = "qup11";
+            };
+            config {
+                pins = "gpio6", "gpio7";
+                drive-strength = <2>;
+                bias-disable;
+            };
+        };
+        ts_i2c_sleep: ts_i2c_sleep {
+            mux {
+                pins = "gpio6", "gpio7";
+                function = "gpio";
+            };
+            config {
+                pins = "gpio6", "gpio7";
+                drive-strength = <2>;
+                bias-pull-down;
+            };
+        };
+    };
+};

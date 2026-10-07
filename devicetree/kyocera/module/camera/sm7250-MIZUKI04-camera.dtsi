@@ -1,0 +1,13 @@
+#include <dt-bindings/clock/qcom,camcc-lito.h>
+
+#include "sm7250-sunny_ov24b2qkc-out.dtsi"
+#include "sm7250-mcnex_ov8856kc-in.dtsi"
+//#include "sm7250-mcnex_ov16b10kc-wide.dtsi"
+//#include "sm7250-sunny_imx316kc-tof.dtsi"
+
+&soc {
+	qcom,cam-res-mgr {
+		compatible = "qcom,cam-res-mgr";
+		status = "ok";
+	};
+};

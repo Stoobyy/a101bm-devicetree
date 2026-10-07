@@ -1,0 +1,20 @@
+/*
+ * This software is contributed or developed by KYOCERA Corporation.
+ * (C) 2021 KYOCERA Corporation
+ *
+ */
+
+#include "./module/usb/sm7250-MIZUKI03-usb.dtsi"
+#include "./module/i2c/sm7250-MIZUKI03-i2c.dtsi"
+#include "./module/keys/sm7250-MIZUKI03-keys.dtsi"
+#include "./module/flashdriver/sd/sm7250-MIZUKI03-sd.dtsi"
+#include "./module/pm/gpio/sm7250-MIZUKI03-gpio.dtsi"
+#include "./module/pm/hkadc/sm7250-MIZUKI03-hkadc.dtsi"
+#include "./module/pm/qg/sm7250-MIZUKI-common-batterydata.dtsi"
+#include "./module/display/SM7250-MIZUKI03-display.dtsi"
+#include "./module/lights/SM7250-MIZUKI03-lights.dtsi"
+#include "./module/touchscreen/SM7250-MIZUKI03-touch.dtsi"
+#include "./module/vibrator/sm7250-MIZUKI03-vibrator.dtsi"
+#include "./module/audio/sm7250-MIZUKI03-audio.dtsi"
+#include "./module/sensors/SM7250-MIZUKI03-sensors.dtsi"
+#include "./module/fingerprint/fpc1020.dtsi"

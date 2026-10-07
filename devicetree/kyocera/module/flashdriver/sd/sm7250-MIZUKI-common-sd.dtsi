@@ -1,0 +1,72 @@
+/*
+ * This software is contributed or developed by KYOCERA Corporation.
+ * (C) 2020 KYOCERA Corporation
+ */
+
+#include <dt-bindings/gpio/gpio.h>
+
+&sdhc_2 {
+	vdd-supply = <&pm8150a_l9>;
+	qcom,vdd-voltage-level = <2960000 2960000>;
+	qcom,vdd-current-level = <0 800000>;
+
+	vdd-io-supply = <&pm8150a_l6>;
+	qcom,vdd-io-voltage-level = <1800000 2960000>;
+	qcom,vdd-io-current-level = <0 22000>;
+    qcom,clk-rates = <384000 20000000 24000000 48000000 85714300 171428600>;
+    qcom,devfreq,freq-table = <48000000 171428600>;
+
+	pinctrl-names = "active", "sleep";
+	pinctrl-0 = <&sdc2_clk_on  &sdc2_cmd_on &sdc2_data_on &sdc2_cd_on>;
+	pinctrl-1 = <&sdc2_clk_off &sdc2_cmd_off &sdc2_data_off &sdc2_cd_off>;
+
+	cd-gpios = <&tlmm 69 GPIO_ACTIVE_HIGH>;
+
+	status = "ok";
+};
+
+&sdc2_cd_on {
+	config {
+			/delete-property/ bias-pull-up;
+			bias-disable;
+	};
+};
+
+&sdc2_clk_off {
+	config {
+			/delete-property/ bias-disable;
+			bias-pull-down;
+	};
+};
+
+&sdc2_cmd_off {
+	config {
+			/delete-property/ bias-pull-up;
+			bias-pull-down;
+	};
+};
+
+&sdc2_data_off {
+	config {
+			/delete-property/ bias-pull-up;
+			bias-pull-down;
+	};
+};
+
+&sdc2_clk_on {
+	config {
+                       drive-strength = <16>;
+	};
+};
+
+&sdc2_cmd_on {
+	config {
+                       drive-strength = <10>;
+	};
+};
+
+&sdc2_data_on {
+	config {
+                       drive-strength = <12>;
+	};
+};

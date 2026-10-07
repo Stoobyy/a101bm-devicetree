@@ -1,0 +1,104 @@
+/*
+ * This software is contributed or developed by KYOCERA Corporation.
+ * (C) 2020 KYOCERA Corporation
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License version 2 and
+ * only version 2 as published by the Free Software Foundation.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ */
+
+&soc {
+	i2c@880000 {
+		DRV2604@5a {
+			compatible = "DRV2604";
+			reg = <0x5a>;
+			oem,rated = <0x0a 0x13 0x1d 0x27 0x30 0x3a 0x44 0x4d 0x57>;
+			oem,clamp = <0x0b 0x17 0x22 0x2e 0x3b 0x46 0x52 0x60 0x6d>;
+			oem,comp = <0x08 0x08 0x08 0x08 0x08 0x08 0x08 0x08 0x08>;
+			oem,bemf = <0x8b 0x8b 0x8b 0x8b 0x8b 0x8b 0x8b 0x8b 0x8b>;
+			oem,gain = <0xb9 0xb9 0xb9 0xb9 0xb9 0xb9 0xb9 0xb9 0xb9>;
+			oem,drivetime = <0x1a>;
+			oem,vib-en-gpio = <&tlmm 45 0x00>;
+			oem,vib-intrig-gpio = <&tlmm 44 0x00>;
+			pinctrl-names = "default", "vib_enable_pin", "vib_disable_pin",
+				"vib_trig_pin", "vib_distrig_pin";
+			pinctrl-0 = <&vib_pins_default>;
+			pinctrl-1 = <&vib_pins_enable>;
+			pinctrl-2 = <&vib_pins_disable>;
+			pinctrl-3 = <&vib_pins_trig>;
+			pinctrl-4 = <&vib_pins_distrig>;
+		};
+	};
+};
+
+&tlmm {
+	vib_pins_default: vib_pins_default {
+		mux {
+			pins = "gpio45";
+			function = "gpio";
+		};
+		config {
+			pins = "gpio45";
+			drive-strength = <2>;
+			bias-disable;
+			output-high;
+		};
+	};
+
+	vib_pins_enable: vib_pins_enable {
+		mux {
+			pins = "gpio45";
+			function = "gpio";
+		};
+		config {
+			pins = "gpio45";
+			drive-strength = <2>;
+			bias-disable;
+			output-high;
+		};
+	};
+
+	vib_pins_disable: vib_pins_disable {
+		mux {
+			pins = "gpio45";
+			function = "gpio";
+		};
+		config {
+			pins = "gpio45";
+			drive-strength = <2>;
+			bias-disable;
+			output-low;
+		};
+	};
+
+	vib_pins_trig: vib_pins_trig {
+		mux {
+			pins = "gpio44";
+			function = "gpio";
+		};
+		config {
+			pins = "gpio44";
+			drive-strength = <2>;
+			bias-disable;
+			output-high;
+		};
+	};
+
+	vib_pins_distrig: vib_pins_distrig {
+		mux {
+			pins = "gpio44";
+			function = "gpio";
+		};
+		config {
+			pins = "gpio44";
+			drive-strength = <2>;
+			bias-disable;
+			output-low;
+		};
+	};
+};

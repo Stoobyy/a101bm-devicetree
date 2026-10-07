@@ -1,0 +1,136 @@
+/*
+ * This software is contributed or developed by KYOCERA Corporation.
+ * (C) 2020 KYOCERA Corporation
+ */
+/*
+ * Copyright (c) 2015, The Linux Foundation. All rights reserved.
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License version 2 and
+ * only version 2 as published by the Free Software Foundation.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ */
+
+&soc {
+	qcom,qbt_handler {
+		status = "disabled";
+	};
+
+	fpc1020 {
+		status = "ok";
+		compatible = "fpc,fpc1020";
+		interrupt-parent = <&tlmm>;
+		interrupts = <112 0x0>;
+		fpc,gpio_irq    = <&tlmm 112 0x0>;
+		fpc,gpio_pwr    = <&tlmm 63 0x0>;
+		/* fpc,enable-on-boot; */
+		fpc,enable-wakeup;
+
+		pinctrl-names = "fpc1020_reset_reset",
+			"fpc1020_reset_active",
+			"fpc1020_irq_active",
+			"fpc1020_pwr_off",
+			"fpc1020_pwr_on",
+			"fp_drop_irq_active";
+
+		pinctrl-0 = <&fpc1020_reset_reset>;
+		pinctrl-1 = <&fpc1020_reset_active>;
+		pinctrl-2 = <&fpc1020_irq_active>;
+		pinctrl-3 = <&fpc1020_pwr_off>;
+		pinctrl-4 = <&fpc1020_pwr_on>;
+		pinctrl-5 = <&fp_drop_irq_active>;
+
+		kc,enable-navi = <0>; /* 0:off, 1:on, 2:lcd */
+		kc,enable-navi-hold = <0>;
+		kc,enable-thermal-monitor = <0>;
+		kc,enable-drop-det = <1>;
+		kc,gpio_drop_irq = <&tlmm 64 0x0>;
+		kc,authenticate-mode = <1>; /* 0:default, 1:lcd */
+
+		panel = <&dsi_jdi_fhd_50_video &dsi_auo_fhd_2160_video>;
+	};
+};
+
+&tlmm {
+	fpc1020_reset {
+		fpc1020_reset_reset: fpc1020_reset_reset {
+			mux {
+				pins = "gpio113";
+				function = "gpio";
+			};
+			config {
+				pins = "gpio113";
+				drive-strength = <2>;
+				output-low;
+			};
+		};
+		fpc1020_reset_active: fpc1020_reset_active {
+			mux {
+				pins = "gpio113";
+				function = "gpio";
+			};
+			config {
+				pins = "gpio113";
+				drive-strength = <2>;
+				output-high;
+			};
+		};
+	};
+
+	fpc1020_irq {
+		fpc1020_irq_active: fpc1020_irq_active {
+			mux {
+				pins = "gpio112";
+				function = "gpio";
+			};
+			config {
+				pins = "gpio112";
+				bias-pull-down;
+				input-enable;
+			};
+		};
+	};
+
+	fpc1020_pwr {
+		fpc1020_pwr_off: fpc1020_pwr_off {
+			mux {
+				pins = "gpio63";
+				function = "gpio";
+			};
+			config {
+				pins = "gpio63";
+				drive-strength = <2>;
+				output-low;
+			};
+		};
+		fpc1020_pwr_on: fpc1020_pwr_on {
+			mux {
+				pins = "gpio63";
+				function = "gpio";
+			};
+			config {
+				pins = "gpio63";
+				drive-strength = <2>;
+				output-high;
+			};
+		};
+	};
+
+	fp_drop_irq {
+		fp_drop_irq_active: fp_drop_irq_active {
+			mux {
+				pins = "gpio64";
+				function = "gpio";
+			};
+			config {
+				pins = "gpio64";
+				input-enable;
+			};
+		};
+	};
+};
+

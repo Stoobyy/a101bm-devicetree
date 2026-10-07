@@ -1,0 +1,10 @@
+/*
+ * This software is contributed or developed by KYOCERA Corporation.
+ * (C) 2020 KYOCERA Corporation
+ */
+
+#include <dt-bindings/gpio/gpio.h>
+
+&sdhc_2 {
+    status = "disabled";
+};

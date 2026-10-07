@@ -1,0 +1,24 @@
+/*
+ * This software is contributed or developed by KYOCERA Corporation.
+ * (C) 2021 KYOCERA Corporation
+ *
+ */
+
+#include "./module/usb/sm7250-MIZUKI04-usb.dtsi"
+#include "./module/i2c/sm7250-MIZUKI04-i2c.dtsi"
+#include "./module/keys/sm7250-MIZUKI04-keys.dtsi"
+#include "./module/pm/charger/sm7250-MIZUKI04-charger.dtsi"
+#include "./module/pm/gpio/sm7250-MIZUKI04-gpio.dtsi"
+#include "./module/pm/hkadc/sm7250-MIZUKI03-hkadc.dtsi"
+#include "./module/pm/qg/sm7250-MIZUKI04-batterydata.dtsi"
+#include "./module/pm/qg/sm7250-MIZUKI04-qg.dtsi"
+#include "./module/vibrator/sm7250-MIZUKI04-vibrator.dtsi"
+#include "./module/audio/sm7250-MIZUKI04-audio.dtsi"
+#include "./module/display/SM7250-MIZUKI04-display.dtsi"
+#include "./module/lights/SM7250-MIZUKI04-lights.dtsi"
+#include "./module/touchscreen/SM7250-MIZUKI04-touch.dtsi"
+#include "./module/sensors/SM7250-MIZUKI04-sensors.dtsi"
+#include "./module/nfc/sm7250-MIZUKI-sn100f-nfc.dtsi"
+#include "./module/flashdriver/sd/sm7250-MIZUKI04-sd.dtsi"
+#include "./module/camera/sm7250-MIZUKI04-camera.dtsi"
+#include "./module/fingerprint/egis520.dtsi"

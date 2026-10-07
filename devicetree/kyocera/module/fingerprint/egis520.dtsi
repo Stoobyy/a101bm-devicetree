@@ -1,0 +1,130 @@
+
+
+
+
+
+&soc {
+	qcom,qbt_handler {
+		status = "disabled";
+	};
+
+    egistec_fp {
+        reg = <0>;
+        spi-max-frequency = <50000000>;
+        compatible = "fp-egistec";
+        egistec,gpio_reset = <&tlmm 113 0x00>;      // reset gpio pin num
+        egistec,gpio_irq = <&tlmm 112  0x00>;        // irq gpio pin num
+        egistec,gpio_vcc_en= <&tlmm 63 0x00>;      // vcc enable gpio pin num
+        //fp-gpio-vcc-enable;                         // use gpio enable power or not
+        //egis-fp,ext-vdd;
+        pinctrl-names = "egis_rst_active", "egis_rst_sleep", "egis_vcc_high", "egis_vcc_low", "egis_irq_active", "egis_drop_irq_active";
+        pinctrl-0 = <&EGIS_RST_active>;
+        pinctrl-1 = <&EGIS_RST_sleep>;
+        pinctrl-2 = <&EGIS_VCC_active>;
+        pinctrl-3 = <&EGIS_VCC_sleep>;
+        pinctrl-4 = <&EGIS_IRQ_active>;
+        pinctrl-5 = <&EGIS_DROP_IRQ_active>;
+
+        //egis-vcc-supply = <&pm8150l_l9>;
+        egis-fp,vcc-voltage = <3200000 3250000>;
+        egis-fp,vcc-max-voltage = <3300000>;
+        egis-fp,vcc-current = <1000000>;
+        //egis-vdd-supply = <&pm8150l_bob>;
+        egis-fp,vdd-voltage = <3008000 3009000>;
+
+        kc,enable-drop-det = <1>;
+        kc,gpio_drop_irq = <&tlmm 64 0x00>;
+
+        panel = <&dsi_ilitek_ili7807s_video>;
+
+    };
+
+};
+
+
+&tlmm {
+    EGIS_RST_active {
+        EGIS_RST_active: EGIS_RST_active {
+            mux {
+                pins = "gpio113";
+                function = "gpio";
+            };
+            config {
+                pins = "gpio113";
+                drive-strength = <2>;   /* 2 mA */
+                output-high;
+            };
+        };
+    };
+
+    EGIS_RST_sleep {
+        EGIS_RST_sleep: EGIS_RST_sleep {
+            mux {
+                pins = "gpio113";
+                function = "gpio";
+            };
+            config {
+                pins = "gpio113";
+                drive-strength = <2>;   /* 2 mA */
+                output-low;
+            };
+        };
+    };
+
+    EGIS_VCC_active {
+        EGIS_VCC_active: EGIS_VCC_active {
+            mux {
+                pins = "gpio63";
+                function = "gpio";
+            };
+            config {
+                pins = "gpio63";
+                drive-strength = <2>;   /* 2 mA */
+                output-high;
+            };
+        };
+    };
+
+    EGIS_VCC_sleep {
+        EGIS_VCC_sleep: EGIS_VCC_sleep {
+            mux {
+                pins = "gpio63";
+                function = "gpio";
+            };
+            config {
+                pins = "gpio63";
+                drive-strength = <2>;   /* 2 mA */
+                output-low;
+            };
+        };
+    };
+
+    EGIS_IRQ_active {
+        EGIS_IRQ_active: EGIS_IRQ_active {
+            mux {
+                pins = "gpio112";
+                function = "gpio";
+            };
+            config {
+                pins = "gpio112";
+                input-enable;
+		bias-pull-up;
+            };
+        };
+    };
+
+    EGIS_DROP_IRQ_active {
+        EGIS_DROP_IRQ_active: EGIS_DROP_IRQ_active {
+            mux {
+                pins = "gpio64";
+                function = "gpio";
+            };
+            config {
+                pins = "gpio64";
+                input-enable;
+            };
+        };
+    };
+
+};
+

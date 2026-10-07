@@ -1,0 +1,21 @@
+/*
+ * This software is contributed or developed by KYOCERA Corporation.
+ * (C) 2020 KYOCERA Corporation
+ *
+ */
+
+/dts-v1/;
+/plugin/;
+
+#include "sm7250-MIZUKI-common.dtsi"
+#include "sm7250-MIZUKI00.dtsi"
+
+#include "./module/display/SM7250-MIZUKI00-rev10-display.dtsi"
+#include "./module/touchscreen/SM7250-MIZUKI00-rev10-touch.dtsi"
+
+/ {
+	model = " Qualcomm Technologies, Inc. SM7250 SoC MIZUKI00 rev10";
+	compatible = "qcom,sm7250", "kc,mizuki00";
+	qcom,board-id = <0x00100005 0>;
+};
+

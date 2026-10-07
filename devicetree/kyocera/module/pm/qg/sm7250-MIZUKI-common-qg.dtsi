@@ -1,0 +1,59 @@
+/*
+ * This software is contributed or developed by KYOCERA Corporation.
+ * (C) 2020 KYOCERA Corporation
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License version 2 and
+ * only version 2 as published by the Free Software Foundation.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ */
+
+#include <dt-bindings/iio/qcom,spmi-vadc.h>
+
+&pm7250b_qg {
+	status = "ok";
+	io-channels = <&pm7250b_vadc ADC_BAT_THERM_PU2>,
+		      <&pm7250b_vadc ADC_BAT_ID_PU2>;
+	io-channel-names = "batt-therm",
+			   "batt-id";
+	qcom,battery-data = <&mtp_batterydata>;
+	qcom,qg-iterm-ma = <280>;
+	qcom,hold-soc-while-full;
+	qcom,linearize-soc;
+	qcom,cl-feedback-on;
+	qcom,cl-max-temp = <430>;
+	qcom,cl-min-temp = <120>;
+	qcom,cl-max-increment = <5>;
+	qcom,cl-max-decrement = <100>;
+	qcom,cl-max-limit = <0>;
+	qcom,cl-min-limit = <0>;
+	qcom,cl-max-start-soc = <40>;
+	qcom,cl-min-start-soc = <0>;
+	qcom,tcss-enable;
+	qcom,fvss-enable;
+	qcom,fvss-vbatt-mv = <3300>;
+	qcom,bass-enable;
+	qcom,vbatt-cutoff-mv = <3400>;
+	qcom,vbatt-low-mv = <3500>;
+	qcom,vbatt-empty-mv = <3200>;
+	qcom,delta-soc = <1>;
+	qcom,ignore-shutdown-soc-secs = <604800>;
+	qcom,shutdown-temp-diff = <60>;
+	qcom,shutdown-soc-threshold = <30>;
+	qcom,cold-temp-threshold = <3>;
+	qcom,vbatt-empty-cold-mv = <3100>;
+	qcom,vbatt-low-cold-mv = <3800>;
+	qcom,esr-disable;
+	qcom,esr-qual-current-ua = <130000>;
+	qcom,esr-qual-vbatt-uv = <7000>;
+	qcom,esr-disable-soc = <10>;
+	qcom,esr-chg-min-ibat-ua = <(-450000)>;
+	qcom,rbat-conn-mohm = <0>;
+	qcom,s3-entry-fifo-length = <3>;
+	qcom,s3-entry-ibat-ua = <20000>;
+	oem,qg-iterm-ma-wchg = <480>;
+};

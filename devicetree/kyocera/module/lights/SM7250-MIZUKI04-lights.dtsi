@@ -1,0 +1,71 @@
+/*
+ * This software is contributed or developed by KYOCERA Corporation.
+ * (C) 2020 KYOCERA Corporation
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License version 2 and
+ * only version 2 as published by the Free Software Foundation.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ */
+
+&soc {
+	kc_leds: kc_leds {
+		compatible = "kc,kc_leds";
+		test = <12345>;
+		blue_support;
+		pattern_enable;
+
+	kc,rled-current = <50 0 0>;
+	kc,gled-current = <0 20 0>;
+	kc,bled-current = <0 0 50>;
+
+	kc,cled-current = <0 40 40>;
+	kc,mled-current = <50 0 50>;
+	kc,yled-current = <50 50 0>;
+	kc,wled-current = <40 40 40>;
+	};
+};
+
+&spmi_bus {
+	qcom,pm8150l@5 {
+		qcom,pwms@b100 {
+			qcom,lut-patterns = <120 120 120 120 118 116 114 112 110 108 106 104 102 100 98 96 94 92 90 88 86 84 82 80 78 75 72 69 66 63 60 57 54 50 46 42 38 34 30 26 22 18 15 12 9 5 2>;
+			lpg1 {
+				qcom,lpg-chan-id = <1>;
+				qcom,ramp-step-ms = <54>;
+				qcom,ramp-pause-hi-count = <0>;
+				qcom,ramp-pause-lo-count = <0>;
+				qcom,ramp-low-index = <2>;
+				qcom,ramp-high-index = <48>;
+				qcom,ramp-from-low-to-high;
+				qcom,ramp-pattern-repeat;
+			};
+
+			lpg2 {
+				qcom,lpg-chan-id = <2>;
+				qcom,ramp-step-ms = <54>;
+				qcom,ramp-pause-hi-count = <0>;
+				qcom,ramp-pause-lo-count = <0>;
+				qcom,ramp-low-index = <2>;
+				qcom,ramp-high-index = <48>;
+				qcom,ramp-from-low-to-high;
+				qcom,ramp-pattern-repeat;
+			};
+
+			lpg3 {
+				qcom,lpg-chan-id = <3>;
+				qcom,ramp-step-ms = <54>;
+				qcom,ramp-pause-hi-count = <0>;
+				qcom,ramp-pause-lo-count = <0>;
+				qcom,ramp-low-index = <2>;
+				qcom,ramp-high-index = <48>;
+				qcom,ramp-from-low-to-high;
+				qcom,ramp-pattern-repeat;
+			};
+		};
+	};
+};

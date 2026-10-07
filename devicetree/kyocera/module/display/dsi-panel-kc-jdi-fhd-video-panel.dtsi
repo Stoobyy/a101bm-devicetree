@@ -1,0 +1,108 @@
+&mdss_mdp {
+	dsi_jdi_fhd_50_video: qcom,mdss_dsi_jdi_fhd_50_video {
+	qcom,mdss-dsi-panel-name =
+		"lcm video mode dsi jdi panel(fhd)";
+	qcom,mdss-dsi-panel-type = "dsi_video_mode";
+//	qcom,mdss-dsi-panel-physical-type = "oled";
+	qcom,dsi-ctrl-num = <0>;
+	qcom,dsi-phy-num = <0>;
+
+	qcom,mdss-dsi-virtual-channel-id = <0>;
+	qcom,mdss-dsi-stream = <0>;
+	qcom,mdss-dsi-bpp = <24>;
+	qcom,mdss-dsi-border-color = <0>;
+	qcom,mdss-dsi-traffic-mode = "non_burst_sync_event";
+	qcom,mdss-dsi-bllp-eof-power-mode;
+	qcom,mdss-dsi-bllp-power-mode;
+	qcom,mdss-dsi-lane-0-state;
+	qcom,mdss-dsi-lane-1-state;
+	qcom,mdss-dsi-lane-2-state;
+	qcom,mdss-dsi-lane-3-state;
+	qcom,mdss-dsi-dma-trigger = "trigger_sw";
+	qcom,mdss-dsi-mdp-trigger = "none";
+	qcom,mdss-dsi-reset-sequence = <1 11>, <0 11>, <1 11>;
+	qcom,adjust-timer-wakeup-ms = <1>;
+
+	qcom,mdss-dsi-panel-clockrate = <850000000>;
+	qcom,mdss-dsi-panel-peak-brightness = <4200000>;
+	qcom,mdss-dsi-panel-blackness-level = <3230>;
+
+	//Add+
+	qcom,mdss-pan-physical-width-dimension = <62>;
+	qcom,mdss-pan-physical-height-dimension = <110>;
+	qcom,mdss-dsi-tx-eot-append;
+	qcom,suspend-ulps-enabled;
+	qcom,mdss-dsi-te-pin-select = <0>;
+	qcom,mdss-dsi-lp11-init;
+	//Add-
+
+	qcom,mdss-dsi-min-refresh-rate = <55>;
+	qcom,mdss-dsi-max-refresh-rate = <60>;
+
+//	qcom,esd-check-enabled;
+//	qcom,mdss-dsi-panel-status-check-mode = "reg_read";
+//	qcom,mdss-dsi-panel-status-command = [06 01 00 01 00 00 01 0a];
+//	qcom,mdss-dsi-panel-status-command-state = "dsi_lp_mode";
+//	qcom,mdss-dsi-panel-status-value = <0x9c>;
+//	qcom,mdss-dsi-panel-status-read-length = <1>;
+	qcom,mdss-mdp-transfer-time-us = <15300>;
+
+	qcom,dsi-select-clocks = "mux_byte_clk0", "mux_pixel_clk0",
+				"src_byte_clk0", "src_pixel_clk0",
+				"shadow_byte_clk0", "shadow_pixel_clk0";
+
+	qcom,panel-supply-entries = <&dsi_panel_pwr_supply>;
+	qcom,mdss-dsi-bl-pmic-control-type = "bl_ctrl_wled";
+	
+	qcom,mdss-dsi-bl-min-level = <1>;
+	qcom,mdss-dsi-bl-max-level = <3520>;
+	qcom,mdss-brightness-max-level = <255>;
+	//qcom,platform-te-gpio = <&tlmm 10 0>;
+	qcom,platform-reset-gpio = <&pm8150l_gpios 3 0>;
+
+	kc,vmipi-gpio = <&pm8150l_gpios 7 0>;
+	kc,platform-lcd-det-gpio = <&tlmm 55 0>;
+	kc,panel-detect-enabled;
+
+	qcom,mdss-dsi-display-timings {
+		timing@0 {
+			qcom,mdss-dsi-panel-width = <1080>;
+			qcom,mdss-dsi-panel-height = <1920>;
+			qcom,mdss-dsi-h-front-porch = <24>;
+			qcom,mdss-dsi-h-back-porch = <76>;
+			qcom,mdss-dsi-h-pulse-width = <24>;
+			qcom,mdss-dsi-h-sync-skew = <0>;
+			qcom,mdss-dsi-v-back-porch = <3>;
+			qcom,mdss-dsi-v-front-porch = <4>;
+			qcom,mdss-dsi-v-pulse-width = <1>;
+			qcom,mdss-dsi-h-left-border = <0>;
+			qcom,mdss-dsi-h-right-border = <0>;
+			qcom,mdss-dsi-panel-framerate = <60>;
+
+			qcom,mdss-dsi-on-command = [
+			  15 01 00 00 00 00 02 FF 10
+			  15 01 00 00 00 00 02 35 01
+			  15 01 00 00 00 00 02 51 FF
+			  15 01 00 00 00 00 02 53 24
+			  15 01 00 00 00 00 02 55 00
+			  15 01 00 00 28 00 02 B0 00
+			  15 01 00 00 00 00 02 35 00
+			  05 01 00 00 78 00 01 11
+			  05 01 00 00 14 00 01 29
+			];
+			qcom,mdss-dsi-off-command = [
+			  05 01 00 00 14 00 01 28
+			  05 01 00 00 7D 00 01 10
+			];
+			qcom,mdss-dsi-on-command-state = "dsi_lp_mode";
+			qcom,mdss-dsi-off-command-state = "dsi_hs_mode";
+
+			qcom,mdss-dsi-panel-phy-timings = [00 14 05 05 1f 1e 05 
+				05 03 02 04 00 12 15];
+
+			qcom,display-topology = <1 0 1>;
+			qcom,default-topology-index = <0>;
+			};
+		};
+	};
+};

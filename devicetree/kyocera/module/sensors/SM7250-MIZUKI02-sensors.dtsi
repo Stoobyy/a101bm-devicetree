@@ -1,0 +1,166 @@
+/*
+ * This software is contributed or developed by KYOCERA Corporation.
+ * (C) 2020 KYOCERA Corporation
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License version 2 and
+ * only version 2 as published by the Free Software Foundation.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ */
+
+#include "SM7250-MIZUKI-common-sensors.dtsi"
+#include "SM7250-MIZUKI02-sensors-spi.dtsi"
+
+&qupv3_se8_spi {
+	//qcom,rt-priority;
+	qlspi_eoss3@0 {
+		status = "ok";
+		compatible = "qlspi,qlspi_eoss3";
+		reg = <0>;
+		spi-max-frequency = <19200000>;
+		spi-min-frequency = <640000>;
+		pinctrl-names = "sensor_micon_default", "sensor_micon_active", "sensor_micon_sleep",
+				"sensor_micon_spi_cs_active", "sensor_micon_spi_cs_suspend", "sensor_micon_spi_cs_reset",
+				"sensor_micon_rst_active", "sensor_micon_rst_suspend",
+				"sensor_micon_vmicon_11_active","sensor_micon_vmicon_11_suspend",
+				"sensor_micon_vmicon_18_active","sensor_micon_vmicon_18_suspend",
+				"sensor_micon_sleep_clk_active","sensor_micon_sleep_clk_suspend",
+				"sensor_micon_vsensor_18_active","sensor_micon_vsensor_18_suspend",
+				"spi_default", "spi_sleep", "sensor_micon_spi_cs_request";
+		pinctrl-0 = <&micon_int_n_default &micon_int_out_default>;
+		pinctrl-1 = <&micon_int_n_active &micon_int_out_active>;
+		pinctrl-2 = <&micon_int_n_suspend &micon_int_out_suspend>;
+		pinctrl-3 = <&sensor_micon_spi_cs_active>;
+		pinctrl-4 = <&sensor_micon_spi_cs_suspend>;
+		pinctrl-5 = <&sensor_micon_spi_cs_reset>;
+		pinctrl-6 = <&sensor_micon_rst_active>;
+		pinctrl-7 = <&sensor_micon_rst_suspend>;
+		pinctrl-8 = <&sensor_micon_vmicon_11_active>;
+		pinctrl-9 = <&sensor_micon_vmicon_11_suspend>;
+		pinctrl-10 = <&sensor_micon_vmicon_18_active>;
+		pinctrl-11 = <&sensor_micon_vmicon_18_suspend>;
+		pinctrl-12 = <&sensor_micon_sleep_clk_active>;
+		pinctrl-13 = <&sensor_micon_sleep_clk_suspend>;
+		pinctrl-14 = <&sensor_micon_vsensor_18_active>;
+		pinctrl-15 = <&sensor_micon_vsensor_18_suspend>;
+/*
+		pinctrl-16 = <&spi_micon_mosi_active
+				 	  &spi_micon_miso_active
+				 	  &spi_micon_clk_active>;
+		pinctrl-17 = <&spi_micon_mosi_suspend
+				 	  &spi_micon_miso_suspend
+				 	  &spi_micon_clk_suspend>;
+		pinctrl-18 = <&sensor_micon_spi_cs_request>;
+*/
+		qlspi,rst-gpio = <&tlmm 109 0>;
+		qlspi,irq-out-gpio = <&tlmm 107 0>;
+		qlspi,irq-gpio = <&tlmm 108 0>;
+		qlspi,cs-gpio = <&tlmm 52 0>;
+		qlspi,fabrdy-gpio = <&tlmm 7 0>;
+
+		spi-cs-low; /* CS Active Level LOW */
+		micon-acc-conv_axis = /bits/ 8 <0>;
+		micon-gyro-conv_axis = /bits/ 8 <0>;
+		micon-mag-conv_axis = /bits/ 8 <0>;
+		micon-mag-static_matrix = <0x2710 0x0 0x0 0x0 0x2710 0x0 0x0 0x0 0x2710>; /* 10000, 0, 0, 0, 10000, 0, 0, 0, 10000 */
+
+		vmicon_11 {
+			ctrl = <1>; /* 1:pinctrl, 2:pm ldo, 3:pm gpio*/
+			gpio = <&tlmm 110 0>;
+		};
+		vmicon_18 {
+			ctrl = <1>; /* 1:pinctrl, 2:pm ldo, 3:pm gpio*/
+			gpio = <&tlmm 24 0>;
+		};
+		vsensor_18 {
+			ctrl = <1>; /* 1:pinctrl, 2:pm ldo, 3:pm gpio*/
+			gpio = <&tlmm 47 0>;
+		};
+		sens_sleep_clk {
+			ctrl = <1>; /* 1:pinctrl, 2:pm ldo, 3:pm gpio*/
+			gpio = <&tlmm 83 0>;
+		};
+	};
+};
+&tlmm {
+	micon_int_out {
+		status = "ok";
+	};
+
+	sensor_micon_spi_cs {
+		status = "ok";
+		sensor_micon_spi_cs_active {
+			mux {
+				pins = "gpio52";
+				function = "qup12";
+			};
+			config {
+				pins = "gpio52";
+				drive-strength = <2>;
+				bias-disable;
+				output-high;
+			};
+		};
+		sensor_micon_spi_cs_suspend {
+			mux {
+				pins = "gpio52";
+				function = "gpio";
+			};
+			config {
+				pins = "gpio52";
+				drive-strength = <2>;
+				bias-disable;
+				output-low;
+			};
+		};
+		sensor_micon_spi_cs_reset {
+			mux {
+				pins = "gpio52";
+				function = "gpio";
+			};
+			config {
+				pins = "gpio52";
+				drive-strength = <2>;
+				bias-disable;
+				output-high;
+			};
+		};
+	};
+
+	sensor_micon_rst {
+		status = "ok";
+	};
+
+	micon_int_n {
+		status = "ok";
+	};
+	sensor_micon_vmicon_11 {
+		status = "ok";
+	};
+
+	sensor_micon_vmicon_18 {
+		status = "ok";
+	};
+
+	sensor_micon_vsensor_18 {
+		status = "ok";
+	};
+
+	sensor_micon_sleep_clk {
+		status = "ok";
+	};
+
+	proximity_int_n {
+		status = "disabled";
+	};
+};
+
+&qupv3_se0_i2c {
+	stk3338@67 { /* Ambient light and proximity sensor */
+		status = "disabled";
+	};
+};
